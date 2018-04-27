@@ -16,9 +16,9 @@ class Environment:
 
         self.maze = np.zeros(shape=(row, col))
 
-        self.state = [row - 1, 0]
         self.width = col
         self.height = row
+        self.state = [self.height - 1, 0]
 
         mazefile.seek(0)
         row = 0
@@ -75,14 +75,21 @@ class Environment:
                     next_state[0] = self.state[0]
 
         self.state = next_state
-        is_terminal = 0
-        reward = -1
+
+        #if (next_state[0] == self.state[0]) and (next_state[1] == self.state[1]):
+            #reward = 0
+        #else:
+            #reward = -1
+
         if self.maze[self.state[0], self.state[1]] == 3:
             is_terminal = 1
-        return [self.state, reward, is_terminal]
+        else:
+            is_terminal = 0
+
+        return [self.state, -1, is_terminal]
 
     def reset(self):
-        self.state = [self.width - 1, 0]
+        self.state = [self.height - 1, 0]
 
     def writefile(self, seqfilename, outfilename):
         seqfile = open(seqfilename, "r")
@@ -96,10 +103,6 @@ class Environment:
         seqfile.close()
 
 
-e = Environment(sys.argv[1])
-e.writefile(sys.argv[3], sys.argv[2])
-e.reset()
-
-
-
-
+#e = Environment(sys.argv[1])
+#e.writefile(sys.argv[3], sys.argv[2])
+#e.reset()
