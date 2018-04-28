@@ -103,6 +103,6 @@ class Environment:
         seqfile.close()
 
 
-#e = Environment(sys.argv[1])
-#e.writefile(sys.argv[3], sys.argv[2])
-#e.reset()
+e1 = Environment(sys.argv[1])
+e1.writefile(sys.argv[3], sys.argv[2])
+e1.reset()

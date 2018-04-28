@@ -82,21 +82,22 @@ for e in xrange(0, num_epochs):
     vs_temp = [0] * (width * height)
     for i in xrange(0, height):
         for j in xrange(0, width):
-            if maze[i][j] == 3:
-                continue
             if maze[i][j] == 0:
                 continue
             qsa = [0] * 4
-            for a in xrange(0, 4):
-                nextstate = get_next_state([i, j], a)
-                index = nextstate[0] * width + nextstate[1]
-                qsa[a] = float(-1.0) + (discount_rate * vs[index])
-
-            max_qsa = max(qsa[0], qsa[1], qsa[2], qsa[3])
-            index = i * width + j
-            vs_temp[index] = max_qsa
+            if maze[i][j] != 3:
+                for a in xrange(0, 4):
+                    nextstate = get_next_state([i, j], a)
+                    index = nextstate[0] * width + nextstate[1]
+                    qsa[a] = float(-1.0) + (discount_rate * vs[index])
+                index = i * width + j
+                vs_temp[index] = max(qsa)
+            else:
+                index = i * width + j
+                vs_temp[index] = 0
     vs = vs_temp
 
+print vs
 
 vfile = open(sys.argv[2], "w")
 qfile = open(sys.argv[3], "w")
@@ -106,7 +107,7 @@ for i in xrange(0, height):
     for j in xrange(0, width):
         if maze[i][j] == 0:
             continue
-        vfile.writelines(str(i) + " " + str(j) + " "+str(round(vs[i*width+j],1)) + "\n")
+        vfile.writelines(str(i) + " " + str(j) + " "+str(round(vs[i*width+j], 2)) + "\n")
 
         qsa = [0] * 4
         if maze[i][j] != 3:
