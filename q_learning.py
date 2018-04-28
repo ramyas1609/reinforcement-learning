@@ -4,7 +4,6 @@ from environment import Environment
 
 e = Environment(sys.argv[1])
 
-
 maze_width = e.width
 maze_height = e.height
 maze = e.maze
@@ -62,32 +61,32 @@ for epi in xrange(0, 10):
         curstate = next_step[0]
 
 
+print qsa
 
+vs = np.zeros(shape=(maze_height, maze_width))
+pi = np.zeros(shape=(maze_height, maze_width))
 
-print qsa[0][0]
-print qsa[0][1]
-print qsa[0][2]
-print qsa[0][3]
-print qsa[1][0]
-print qsa[1][1]
-print qsa[1][2]
-print qsa[1][3]
-print qsa[2][0]
-print qsa[2][1]
-print qsa[2][2]
-print qsa[2][3]
-print qsa[3][0]
-print qsa[3][1]
-print qsa[3][2]
-print qsa[3][3]
+vfile = open(sys.argv[2], "w")
+qfile = open(sys.argv[3], "w")
+pifile = open(sys.argv[4],"w")
 
+for i in xrange(0, maze_height):
+    for j in xrange(0, maze_width):
+        if maze[i][j] == 0:
+            continue
+        index = i * maze_width + j
+        max_v = qsa[index][0]
+        max_a = 0
+        for a in xrange(0, 4):
+            if qsa[index][a] > max_v:
+                max_v = qsa[index][a]
+                max_a = a
+            qfile.writelines(str(i) + " " + str(j) + " " + str(qsa[index][a]) + "\n")
+        vs[i][j] = max_v
+        vfile.writelines(str(i) + " " + str(j) + " " + str(round(vs[i][j], 1)) + "\n")
+        pi[i][j] = max_a
+        pifile.writelines(str(i) + " " + str(j) + " " + str(round(pi[i][j], 1)) + "\n")
 
-
-
-
-
-
-
-
-
-
+vfile.close()
+qfile.close()
+pifile.close()
