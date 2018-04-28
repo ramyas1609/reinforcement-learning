@@ -115,7 +115,7 @@ for i in xrange(0, height):
                 nextstate = get_next_state([i, j], a)
                 index = nextstate[0] * width + nextstate[1]
                 qsa[a] = -1 + (discount_rate * vs[index])
-                qfile.writelines(str(i) + " " + str(j) + " " + str(a) + " " +str(round(qsa[a], 2)) + "\n")
+                qfile.writelines(str(i) + " " + str(j) + " " + str(a) + " " + str(round(qsa[a], 2)) + "\n")
         else:
             for a in xrange(0, 4):
                 qfile.writelines(str(i) + " " + str(j) + " " + str(a) + " " + str(round(0.0, 2)) + "\n")

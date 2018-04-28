@@ -172,11 +172,11 @@ for i in xrange(0, maze_height):
             if qsa[index][a] > max_v:
                 max_v = qsa[index][a]
                 max_a = a
-            qfile.writelines(str(i) + " " + str(j) + " " + str(qsa[index][a]) + "\n")
+            qfile.writelines(str(i) + " " + str(j) + " " + str(a) + " " + str(qsa[index][a]) + "\n")
         vs[i][j] = max_v
-        vfile.writelines(str(i) + " " + str(j) + " " + str(round(vs[i][j], 1)) + "\n")
+        vfile.writelines(str(i) + " " + str(j) + " " + str(round(vs[i][j], 2)) + "\n")
         pi[i][j] = max_a
-        pifile.writelines(str(i) + " " + str(j) + " " + str(round(pi[i][j], 1)) + "\n")
+        pifile.writelines(str(i) + " " + str(j) + " " + str(round(pi[i][j], 2)) + "\n")
 
 vfile.close()
 qfile.close()
